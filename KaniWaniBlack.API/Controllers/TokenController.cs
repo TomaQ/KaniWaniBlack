@@ -45,7 +45,7 @@ namespace KaniWaniBlack.API.Controllers
         {
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
-                new Claim(JwtRegisteredClaimNames.Email, user.ApiKey),
+                new Claim("api_key", user.ApiKey),
                 new Claim(JwtRegisteredClaimNames.Birthdate, user.CreatedOn.ToString("yyyy-MM-dd")),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
@@ -65,7 +65,7 @@ namespace KaniWaniBlack.API.Controllers
 
             if (login.Username == "TestUser" && login.Password == "testPassword")
             {
-                user = new User { Username = "Mario Rossi", ApiKey = "mario.rossi@domain.com" };
+                user = new User { Username = "TestUser", ApiKey = "testAkiKey" };
             }
             return user;
         }
