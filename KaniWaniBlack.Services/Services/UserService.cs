@@ -1,5 +1,5 @@
 ﻿using KaniWaniBlack.Data.DAL.Interfaces;
-using KaniWaniBlack.Data.Model;
+using KaniWaniBlack.Data.Models;
 using KaniWaniBlack.Services.Models;
 using KaniWaniBlack.Services.Models.Authentication;
 using KaniWaniBlack.Services.Services.Interfaces;
@@ -20,7 +20,7 @@ namespace KaniWaniBlack.Services.Services
 
         public User GetUserById(int id)
         {
-            return _userRepo.Get(x => x.ID == id);
+            return _userRepo.Get(x => x.Id == id);
         }
 
         public User GetUserByUserName(string username)

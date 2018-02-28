@@ -10,8 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using KaniWaniBlack.Data.Model;
 using KaniWaniBlack.API.Models;
+using KaniWaniBlack.Services.Services.Interfaces;
+using KaniWaniBlack.Data.Models;
 
 namespace KaniWaniBlack.API.Controllers
 {
@@ -19,10 +20,12 @@ namespace KaniWaniBlack.API.Controllers
     public class TokenController : Controller
     {
         private IConfiguration _config;
+        private readonly IUserService _userService;
 
-        public TokenController(IConfiguration config)
+        public TokenController(IConfiguration config, IUserService userService)
         {
             _config = config;
+            _userService = userService;
         }
 
         [AllowAnonymous]
@@ -62,6 +65,7 @@ namespace KaniWaniBlack.API.Controllers
         private User Authenticate(LoginRequest login)
         {
             User user = null;
+            User testUser = _userService.GetUserById(1); //TODO: not this
 
             if (login.Username == "TestUser" && login.Password == "testPassword")
             {

@@ -1,4 +1,4 @@
-﻿using KaniWaniBlack.Data.Model;
+﻿using KaniWaniBlack.Data.Models;
 using KaniWaniBlack.Services.Models.Authentication;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,11 @@ namespace KaniWaniBlack.Services.Services.Interfaces
     public interface IUserService
     {
         User GetUserById(int id);
+
         User GetUserByUserName(string username);
+
         AuthenticationResponse CreateUser(string username, string password, string passwordConfirmation);
+
         AuthenticationResponse ValidateUser(string username, string password);
     }
 }

@@ -9,9 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Entityframework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KaniWaniBlack.Data\KaniWaniBlack.Data.csproj" />
+    <ProjectReference Include="..\KaniWaniBlack.Services\KaniWaniBlack.Services.csproj" />
   </ItemGroup>
 
 </Project>

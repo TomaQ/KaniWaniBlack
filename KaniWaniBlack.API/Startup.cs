@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KaniWaniBlack.Data.DAL;
+using KaniWaniBlack.Data.DAL.Interfaces;
+using KaniWaniBlack.Services.Services;
+using KaniWaniBlack.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using KaniWaniBlack.Data.Models;
 
 namespace KaniWaniBlack.API
 {
@@ -42,6 +48,13 @@ namespace KaniWaniBlack.API
                 });
 
             services.AddMvc();
+
+            string connectionString = Configuration["ConnectionString:KaniWaniBlackEntities"];
+            services.AddDbContext<KaniWaniBlackContext>(x => x.UseSqlServer(connectionString));
+
+            services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICryptoService, CryptoService>();
 
             services.AddCors(options =>
             {
