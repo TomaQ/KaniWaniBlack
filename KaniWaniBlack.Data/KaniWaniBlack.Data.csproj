@@ -103,12 +103,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AuditLogs.cs" />
+    <Compile Include="Models\KaniWaniBlackContext.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\Interfaces\IGenericRepository.cs" />
-    <Compile Include="Models\KaniWaniBlackContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserVocab.cs" />
+    <Compile Include="Models\WaniKaniUser.cs" />
     <Compile Include="Models\WaniKaniVocab.cs" />
   </ItemGroup>
   <ItemGroup>

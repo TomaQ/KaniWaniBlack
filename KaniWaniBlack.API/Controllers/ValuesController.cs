@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using KaniWaniBlack.Helper.Services;
 
 namespace KaniWaniBlack.API.Controllers
 {
@@ -15,13 +16,17 @@ namespace KaniWaniBlack.API.Controllers
         [HttpGet, Authorize]
         public IEnumerable<string> Get()
         {
-            var currentUser = HttpContext.User;
-            int userAge = 0;
-
-            if (currentUser.HasClaim(x => x.Type == ClaimTypes.DateOfBirth))
+            int? userAge = 0;
+            try
             {
-                DateTime birthDate = DateTime.Parse(currentUser.Claims.FirstOrDefault(x => x.Type == ClaimTypes.DateOfBirth).Value);
-                userAge = DateTime.Today.Year - birthDate.Year; //not real/accurate calculation
+                var currentUser = HttpContext.User;
+
+                DateTime? birthDate = DateTime.Parse(HttpHelper.GetClaim(currentUser, ClaimTypes.DateOfBirth));
+                userAge = DateTime.Today.Year - birthDate?.Year; //not real/accurate calculation
+            }
+            catch (Exception ex)
+            {
+                Logger.HandleException(ex);
             }
 
             if (userAge < 18)

@@ -44,12 +44,10 @@ namespace KaniWaniBlack.API.Controllers
             return response;
         }
 
-        private string BuildToken(User user) //TODO: clean this up
+        private string BuildToken(User user) //TODO: clean this up, and comment
         {
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
-                new Claim("api_key", user.ApiKey),
-                new Claim(JwtRegisteredClaimNames.Birthdate, user.CreatedOn.ToString("yyyy-MM-dd")),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -62,16 +60,16 @@ namespace KaniWaniBlack.API.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private User Authenticate(LoginRequest login)
+        private User Authenticate(LoginRequest request)
         {
-            User user = null;
-            User testUser = _userService.GetUserById(1); //TODO: not this
+            User user = _userService.GetUserByUserName(request.Username);
 
-            if (login.Username == "TestUser" && login.Password == "testPassword")
+            if (user != null && _userService.ValidateUser(request.Username, request.Password).Code == Services.Models.CodeType.Ok)
             {
-                user = new User { Username = "TestUser", ApiKey = "testAkiKey" };
+                return user;
             }
-            return user;
+
+            return null;
         }
     }
 }

@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KaniWaniBlack.Data\KaniWaniBlack.Data.csproj" />
+    <ProjectReference Include="..\KaniWaniBlack.Helper\KaniWaniBlack.Helper.csproj" />
     <ProjectReference Include="..\KaniWaniBlack.Services\KaniWaniBlack.Services.csproj" />
   </ItemGroup>
 

@@ -4,6 +4,7 @@ using KaniWaniBlack.Services.Models;
 using KaniWaniBlack.Services.Models.Authentication;
 using KaniWaniBlack.Services.Services.Interfaces;
 using System;
+using KaniWaniBlack.Helper.Services;
 
 namespace KaniWaniBlack.Services.Services
 {
@@ -56,7 +57,7 @@ namespace KaniWaniBlack.Services.Services
                     }
                     else
                     {
-                        response.Message = "A user with that username already exists.";
+                        response.Message = "A user with that username already exists."; //TODO: put string in class
                         return response;
                     }
                 }
@@ -84,30 +85,29 @@ namespace KaniWaniBlack.Services.Services
                     string hashedPassword = _cryptoService.GeneratePasswordHashForUser(user.PasswordSalt, password);
                     if (hashedPassword == user.PasswordHash)
                     {
-                        response.ApiKey = user.ApiKey;
+                        //response.ApiKey = user.UserVocab; //TODO: which way to reference?
                         response.UserName = user.Username;
 
-                        response.Code = Models.CodeType.Ok;
-                        response.Message = "Authentication Successful";
+                        response.Code = CodeType.Ok;
+                        response.Message = Strings.USER_AUTH_SUCCESS;
                         response.Status = "Passed";
 
                         return response;
                     }
                     else
                     {
-                        response.Message = "Username/Password is invalid.";
+                        response.Message = Strings.INVALID_USER_PASS;
                         return response;
                     }
                 }
                 else
                 {
-                    response.Message = "Username/Password is invalid.";
+                    response.Message = Strings.INVALID_USER_PASS;
                     return response;
                 }
             }
             catch (Exception ex)
             {
-                response.Message = "Username/Password is invalid.";
                 response.Status = ex.Message;
                 return response;
             }
