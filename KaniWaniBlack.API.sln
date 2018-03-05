@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaniWaniBlack.Services", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaniWaniBlack.Helper", "KaniWaniBlack.Helper\KaniWaniBlack.Helper.csproj", "{02840321-0473-4FE5-AC0B-AC400A92BD2A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{92E47833-763D-4B7F-92D5-922559AFB1F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaniWaniBlack.Test", "KaniWaniBlack.Test\KaniWaniBlack.Test.csproj", "{B52A2154-81AA-49B3-83F3-FBA85F2D113D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{02840321-0473-4FE5-AC0B-AC400A92BD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02840321-0473-4FE5-AC0B-AC400A92BD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02840321-0473-4FE5-AC0B-AC400A92BD2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B52A2154-81AA-49B3-83F3-FBA85F2D113D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52A2154-81AA-49B3-83F3-FBA85F2D113D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52A2154-81AA-49B3-83F3-FBA85F2D113D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52A2154-81AA-49B3-83F3-FBA85F2D113D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B52A2154-81AA-49B3-83F3-FBA85F2D113D} = {92E47833-763D-4B7F-92D5-922559AFB1F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6ECAB148-4D03-4A25-ACEE-DF63BB9A58B6}
