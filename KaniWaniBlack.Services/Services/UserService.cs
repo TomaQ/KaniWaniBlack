@@ -29,7 +29,7 @@ namespace KaniWaniBlack.Services.Services
             return _userRepo.Get(x => x.Username.Equals(username, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public AuthenticationResponse CreateUser(string username, string password, string passwordConfirmation) //TODO: not like this
+        public AuthenticationResponse CreateUser(string username, string password, string passwordConfirmation, string applicationUsed)
         {
             var response = new AuthenticationResponse(username);
             try
@@ -46,34 +46,37 @@ namespace KaniWaniBlack.Services.Services
                             Username = username,
                             PasswordSalt = salt,
                             PasswordHash = hashedPassword,
+                            LastApplicationUsed = applicationUsed,
                             CreatedOn = DateTime.UtcNow
                         };
                         _userRepo.Add(newUser);
 
-                        response.Message = "User " + username + " created.";
+                        response.Message = Strings.USER_CREATED;
                         response.Code = CodeType.Ok;
 
                         return response;
                     }
                     else
                     {
-                        response.Message = "A user with that username already exists."; //TODO: put string in class
+                        response.Message = Strings.USER_ALREADY_EXISTS;
                         return response;
                     }
                 }
                 else
                 {
-                    response.Message = "Passwords do not match.";
+                    response.Message = Strings.PASSWORDS_DONT_MATCH;
                     return response;
                 }
             }
             catch (Exception ex) //TODO: sqlexception
             {
+                //Logger.HandleException(ex);
+                response.Code = CodeType.Error;
                 return response;
             }
         }
 
-        public AuthenticationResponse ValidateUser(string username, string password)
+        public AuthenticationResponse ValidateUser(string username, string password, string applicationUsed)
         {
             var response = new AuthenticationResponse(username);
             try
@@ -85,17 +88,17 @@ namespace KaniWaniBlack.Services.Services
                     string hashedPassword = _cryptoService.GeneratePasswordHashForUser(user.PasswordSalt, password);
                     if (hashedPassword == user.PasswordHash)
                     {
-                        //response.ApiKey = user.UserVocab; //TODO: which way to reference?
                         response.UserName = user.Username;
 
                         response.Code = CodeType.Ok;
                         response.Message = Strings.USER_AUTH_SUCCESS;
-                        response.Status = "Passed";
 
+                        UpdateUserOnLoginAttempt(user, applicationUsed);
                         return response;
                     }
                     else
                     {
+                        UpdateUserOnLoginAttempt(user, applicationUsed, true);
                         response.Message = Strings.INVALID_USER_PASS;
                         return response;
                     }
@@ -108,8 +111,33 @@ namespace KaniWaniBlack.Services.Services
             }
             catch (Exception ex)
             {
-                response.Status = ex.Message;
+                response.Message = ex.Message;
                 return response;
+            }
+        }
+
+        private void UpdateUserOnLoginAttempt(User user, string applicationUsed, bool failedLogin = false)
+        {
+            try
+            {
+                user.LastApplicationUsed = applicationUsed;
+                user.ModifiedOn = DateTime.UtcNow;
+
+                if (failedLogin)
+                {
+                    user.LastLoginAttempt = DateTime.UtcNow;
+                    user.LoginAttempts = user.LoginAttempts != null ? user.LoginAttempts += 1 : 1;
+                }
+                else
+                {
+                    user.LastLoginDate = DateTime.UtcNow;
+                    user.LoginAttempts = 0;
+                }
+
+                _userRepo.Update(user);
+            }
+            catch (Exception ex)
+            {
             }
         }
     }

@@ -37,7 +37,7 @@ namespace KaniWaniBlack.Data.DAL
                 dbQuery = dbQuery.Include(con);
             }
 
-            return dbQuery.FirstOrDefault();
+            return dbQuery.FirstOrDefault(where);
         }
 
         public virtual IQueryable<T> GetAll(params Expression<Func<T, object>>[] conditions)

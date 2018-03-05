@@ -15,7 +15,6 @@ namespace KaniWaniBlack.Services.Models.Authentication
         {
             UserName = u;
             Message = "An error occurred";
-            Status = "Application Error";
             Code = CodeType.Error;
         }
     }

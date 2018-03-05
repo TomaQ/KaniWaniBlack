@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KaniWaniBlack.Data.Models
 {
-    public partial class AuditLogs
+    public partial class AuditLog
     {
         public int Id { get; set; }
         public string Module { get; set; }

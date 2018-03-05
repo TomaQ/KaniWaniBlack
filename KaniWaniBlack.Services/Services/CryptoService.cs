@@ -1,7 +1,6 @@
 ﻿using KaniWaniBlack.Services.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -35,10 +34,6 @@ namespace KaniWaniBlack.Services.Services
                 byte[] hashBytes = HashPassword(password);
 
                 return Convert.ToBase64String(hashBytes);
-            }
-            catch (SqlException ex)
-            {
-                throw; //TODO: expand on this
             }
             catch (Exception ex)
             {

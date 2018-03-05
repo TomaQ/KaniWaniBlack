@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace KaniWaniBlack.API.Models
 {
-    public class LoginRequest
+    public class LoginUserRequest : UserRequest
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
     }
 }

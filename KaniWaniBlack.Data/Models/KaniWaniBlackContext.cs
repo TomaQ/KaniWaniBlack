@@ -6,7 +6,7 @@ namespace KaniWaniBlack.Data.Models
 {
     public partial class KaniWaniBlackContext : DbContext
     {
-        public virtual DbSet<AuditLogs> AuditLogs { get; set; }
+        public virtual DbSet<AuditLog> AuditLogs { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserVocab> UserVocab { get; set; }
         public virtual DbSet<WaniKaniUser> WaniKaniUser { get; set; }
@@ -17,7 +17,7 @@ namespace KaniWaniBlack.Data.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuditLogs>(entity =>
+            modelBuilder.Entity<AuditLog>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 

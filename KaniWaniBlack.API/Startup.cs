@@ -24,7 +24,7 @@ namespace KaniWaniBlack.API
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration; //TODO: SSL
         }
 
         public IConfiguration Configuration { get; }
@@ -82,7 +82,10 @@ namespace KaniWaniBlack.API
             }
 
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("customRoute", "api/{controller=User}/{action=LoginUser}");
+            });
             app.UseCors("CorsPolicy");
         }
     }
