@@ -14,5 +14,6 @@ namespace KaniWaniBlack.Helper.Services
         public const string USER_ALREADY_EXISTS = "That username already exists.";
         public const string PASSWORDS_DONT_MATCH = "Passwords do not match.";
         public const string USER_CREATED = "User successfuly created.";
+        public const string USER_RESET_PASSWORD = "User reset password.";
     }
 }

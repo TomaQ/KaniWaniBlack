@@ -19,6 +19,7 @@ namespace KaniWaniBlack.Services.Services
             _Random = RandomNumberGenerator.Create();
         }
 
+        //Create salt for a newly created user
         public string GenerateSaltForUser()
         {
             byte[] data = new byte[SALT_LENGTH];
@@ -26,6 +27,7 @@ namespace KaniWaniBlack.Services.Services
             return Convert.ToBase64String(data);
         }
 
+        //Creates a password hash for the user account
         public string GeneratePasswordHashForUser(string salt, string password)
         {
             try

@@ -29,12 +29,13 @@ namespace KaniWaniBlack.Services.Services
             return _userRepo.Get(x => x.Username.Equals(username, StringComparison.CurrentCultureIgnoreCase));
         }
 
+        //Create a user account
         public AuthenticationResponse CreateUser(string username, string password, string passwordConfirmation, string applicationUsed)
         {
             var response = new AuthenticationResponse(username);
             try
             {
-                if (password == passwordConfirmation)
+                if (password == passwordConfirmation) //TODO: refactor (look at resetPassword)
                 {
                     if (_userRepo.Get(x => x.Username.Equals(username, StringComparison.CurrentCultureIgnoreCase)) == null)
                     {
@@ -53,29 +54,27 @@ namespace KaniWaniBlack.Services.Services
 
                         response.Message = Strings.USER_CREATED;
                         response.Code = CodeType.Ok;
-
-                        return response;
                     }
                     else
                     {
                         response.Message = Strings.USER_ALREADY_EXISTS;
-                        return response;
                     }
                 }
                 else
                 {
                     response.Message = Strings.PASSWORDS_DONT_MATCH;
-                    return response;
                 }
             }
             catch (Exception ex) //TODO: sqlexception
             {
                 //Logger.HandleException(ex);
                 response.Code = CodeType.Error;
-                return response;
             }
+
+            return response;
         }
 
+        //Login the user and update DB for login success/fail
         public AuthenticationResponse ValidateUser(string username, string password, string applicationUsed)
         {
             var response = new AuthenticationResponse(username);
@@ -94,28 +93,60 @@ namespace KaniWaniBlack.Services.Services
                         response.Message = Strings.USER_AUTH_SUCCESS;
 
                         UpdateUserOnLoginAttempt(user, applicationUsed);
-                        return response;
                     }
                     else
                     {
                         UpdateUserOnLoginAttempt(user, applicationUsed, true);
                         response.Message = Strings.INVALID_USER_PASS;
-                        return response;
                     }
                 }
                 else
                 {
                     response.Message = Strings.INVALID_USER_PASS;
-                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message; //TODO: not this
+            }
+
+            return response;
+        }
+
+        //If the user is validated, set their password to the new one given
+        public AuthenticationResponse ResetPassword(string username, string password, string newPassword, string applicationUsed)
+        {
+            var response = new AuthenticationResponse(username);
+
+            try
+            {
+                if (ValidateUser(username, password, applicationUsed).Code == CodeType.Ok) //TODO: use token?
+                {
+                    string salt = _cryptoService.GenerateSaltForUser();
+                    string hashedPassword = _cryptoService.GeneratePasswordHashForUser(salt, newPassword);
+
+                    User user = new User
+                    {
+                        PasswordSalt = salt,
+                        PasswordHash = hashedPassword,
+                        LastApplicationUsed = applicationUsed,
+                        ModifiedOn = DateTime.UtcNow
+                    };
+                    _userRepo.Update(user);
+
+                    response.Message = Strings.USER_RESET_PASSWORD;
+                    response.Code = CodeType.Ok;
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
-                return response;
             }
+
+            return response;
         }
 
+        //If the user login was successful or failed, update fields in the DB
         private void UpdateUserOnLoginAttempt(User user, string applicationUsed, bool failedLogin = false)
         {
             try
@@ -138,6 +169,7 @@ namespace KaniWaniBlack.Services.Services
             }
             catch (Exception ex)
             {
+                //TODO:
             }
         }
     }

@@ -58,6 +58,7 @@ namespace KaniWaniBlack.Data.DAL
             {
                 _context.Entry(item).State = EntityState.Deleted;
             }
+            _context.SaveChanges();
         }
 
         public virtual void Update(params T[] items)

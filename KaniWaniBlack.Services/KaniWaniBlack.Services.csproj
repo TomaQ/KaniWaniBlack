@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\10.0.1\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,11 +46,15 @@
   <ItemGroup>
     <Compile Include="Models\Authentication\AuthenticationResponse.cs" />
     <Compile Include="Models\BaseResponse.cs" />
+    <Compile Include="Models\WaniKani\UserInformation.cs" />
+    <Compile Include="Models\WaniKani\VocabWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\Interfaces\ICryptoService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
+    <Compile Include="Services\Interfaces\IWaniKaniService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\WaniKaniService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

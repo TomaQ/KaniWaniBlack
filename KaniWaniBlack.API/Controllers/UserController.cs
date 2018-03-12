@@ -12,7 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 namespace KaniWaniBlack.API.Controllers
 {
     [Produces("application/json")]
-    //[Route("api/[controller]")]
     public class UserController : Controller
     {
         private IConfiguration _config;
@@ -37,7 +36,7 @@ namespace KaniWaniBlack.API.Controllers
         public IActionResult LoginUser([FromBody]LoginUserRequest request)
         {
             IActionResult response = Unauthorized();
-            bool isAuthenticated = Authenticate(request);
+            bool isAuthenticated = Authenticate(request.Username, request.Password, request.Application);
 
             if (isAuthenticated)
             {
@@ -52,7 +51,12 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public ActionResult ResetPassword(ResetPasswordRequest request)
         {
-            return Json("");
+            if (request.NewPassword == request.ConfirmNewPassword)
+            {
+                return Json(_userService.ResetPassword(request.Username, request.Password, request.NewPassword, request.Application));
+            }
+
+            return Json("Passwords do not match."); //TODO: static string
         }
 
         private string BuildToken(string username)
@@ -71,9 +75,9 @@ namespace KaniWaniBlack.API.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private bool Authenticate(LoginUserRequest request)
+        private bool Authenticate(string username, string password, string applicationUsed)
         {
-            if (_userService.ValidateUser(request.Username, request.Password, request.Application).Code == Services.Models.CodeType.Ok)
+            if (_userService.ValidateUser(username, password, applicationUsed).Code == Services.Models.CodeType.Ok)
             {
                 return true;
             }

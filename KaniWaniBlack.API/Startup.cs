@@ -29,9 +29,10 @@ namespace KaniWaniBlack.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        //This method gets called by the runtime
         public void ConfigureServices(IServiceCollection services)
         {
+            //Use JWT for authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -49,13 +50,18 @@ namespace KaniWaniBlack.API
 
             services.AddMvc();
 
+            //KaniWaniBlack DB connection string
             string connectionString = Configuration["ConnectionString:KaniWaniBlackEntities"];
             services.AddDbContext<KaniWaniBlackContext>(x => x.UseSqlServer(connectionString));
 
+            //Dependency injection
             services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
+            services.AddScoped<IGenericRepository<WaniKaniVocab>, GenericRepository<WaniKaniVocab>>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptoService, CryptoService>();
+            services.AddTransient<IWaniKaniService, WaniKaniService>();
 
+            //TODO: restrict origin for prod
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",

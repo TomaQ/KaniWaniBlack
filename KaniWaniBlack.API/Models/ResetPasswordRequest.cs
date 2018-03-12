@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace KaniWaniBlack.API.Models
 {
-    public class ResetPasswordRequest
+    public class ResetPasswordRequest : UserRequest
     {
-        public string OldPassword { get; set; }
         public string NewPassword { get; set; }
         public string ConfirmNewPassword { get; set; }
     }

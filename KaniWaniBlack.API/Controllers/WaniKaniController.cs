@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KaniWaniBlack.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +10,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace KaniWaniBlack.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/wanikani")]
     public class WaniKaniController : Controller
     {
-        [Authorize]
-        public ActionResult GetWaniKaniData()
+        private readonly IWaniKaniService _WKService;
+
+        public WaniKaniController(IWaniKaniService waniServ)
         {
+            _WKService = waniServ;
+        }
+
+        //[Authorize] //TODO: uncomment
+        [HttpGet]
+        public ActionResult GetUserWaniKaniData(string apiKey)
+        {
+            _WKService.Test(apiKey);
             return Json("");
         }
 

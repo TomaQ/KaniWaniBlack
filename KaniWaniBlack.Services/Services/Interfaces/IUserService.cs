@@ -17,5 +17,7 @@ namespace KaniWaniBlack.Services.Services.Interfaces
         AuthenticationResponse CreateUser(string username, string password, string passwordConfirmation, string applicationUsed);
 
         AuthenticationResponse ValidateUser(string username, string password, string applicationUsed);
+
+        AuthenticationResponse ResetPassword(string username, string password, string newPassword, string applicationUsed);
     }
 }
