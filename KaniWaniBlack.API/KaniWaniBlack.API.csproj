@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="log4net.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -21,9 +25,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="log4net.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\KaniWaniBlack.Data\KaniWaniBlack.Data.csproj" />
     <ProjectReference Include="..\KaniWaniBlack.Helper\KaniWaniBlack.Helper.csproj" />
     <ProjectReference Include="..\KaniWaniBlack.Services\KaniWaniBlack.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\KaniWaniBlack.Helper\bin\Debug\log4net.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

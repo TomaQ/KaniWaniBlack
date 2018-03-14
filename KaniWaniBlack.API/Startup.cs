@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using KaniWaniBlack.Data.Models;
+using KaniWaniBlack.Helper.Services.HttpFactory;
 
 namespace KaniWaniBlack.API
 {
@@ -60,6 +61,7 @@ namespace KaniWaniBlack.API
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptoService, CryptoService>();
             services.AddTransient<IWaniKaniService, WaniKaniService>();
+            services.AddTransient<IHttpClientFactory, HttpClientFactory>();
 
             //TODO: restrict origin for prod
             services.AddCors(options =>

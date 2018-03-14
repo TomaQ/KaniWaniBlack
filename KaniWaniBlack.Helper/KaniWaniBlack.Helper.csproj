@@ -47,6 +47,8 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\HttpFactory\HttpClientFactory.cs" />
+    <Compile Include="Services\HttpFactory\IHttpClientFactory.cs" />
     <Compile Include="Services\HttpHelper.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\Strings.cs" />

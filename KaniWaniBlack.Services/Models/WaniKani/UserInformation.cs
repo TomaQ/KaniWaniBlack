@@ -9,37 +9,16 @@ namespace KaniWaniBlack.Services.Models.WaniKani
 {
     public class UserInformation
     {
-        [JsonProperty("username")]
-        public string UserName { get; set; }
-
-        [JsonProperty("gravatar")]
-        public string Gravatar { get; set; }
-
-        [JsonProperty("level")]
-        public short Level { get; set; }
-
-        [JsonProperty("title")]
-        public string Title { get; set; }
-
-        [JsonProperty("about")]
-        public string About { get; set; }
-
-        [JsonProperty("website")]
-        public string Website { get; set; }
-
-        [JsonProperty("twitter")]
-        public string Twitter { get; set; }
-
-        [JsonProperty("topics_count")]
-        public int TopicsCount { get; set; }
-
-        [JsonProperty("posts_count")]
-        public int PostsCount { get; set; }
-
-        [JsonProperty("creation_date")]
-        public DateTime? CreatedDate { get; set; }
-
-        [JsonProperty("vacation_date")]
-        public DateTime? VacationDate { get; set; }
+        public string username { get; set; }
+        public string gravatar { get; set; }
+        public int level { get; set; }
+        public string title { get; set; }
+        public string about { get; set; }
+        public object website { get; set; }
+        public object twitter { get; set; }
+        public int topics_count { get; set; }
+        public int posts_count { get; set; }
+        public int creation_date { get; set; }
+        public object vacation_date { get; set; }
     }
 }

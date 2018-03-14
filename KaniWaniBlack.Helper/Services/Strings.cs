@@ -15,5 +15,8 @@ namespace KaniWaniBlack.Helper.Services
         public const string PASSWORDS_DONT_MATCH = "Passwords do not match.";
         public const string USER_CREATED = "User successfuly created.";
         public const string USER_RESET_PASSWORD = "User reset password.";
+
+        /* HTTP Helper */
+        public const string WANIKANI_API_URL = @"https://www.wanikani.com/api/v1.4/user/";
     }
 }

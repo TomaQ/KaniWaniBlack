@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KaniWaniBlack.Helper.Services;
 using KaniWaniBlack.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,14 +24,16 @@ namespace KaniWaniBlack.API.Controllers
         [HttpGet]
         public ActionResult GetUserWaniKaniData(string apiKey)
         {
-            _WKService.Test(apiKey);
+            Logger.HandleException(new Exception("Test logging"));
             return Json("");
         }
 
-        [Authorize]
-        public ActionResult GetWaniKaniVocabList()
+        //[Authorize] //TODO: uncomment also
+        [HttpPost]
+        public ActionResult UpdateWaniKaniVocabList(string apiKey)
         {
-            return Json("");
+            bool didUpdate = _WKService.UpdateWaniKaniVocabList(apiKey);
+            return Json(didUpdate);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace KaniWaniBlack.Services.Services.Interfaces
 {
     public interface IWaniKaniService
     {
-        void Test(string apiKey);
+        bool UpdateWaniKaniVocabList(string apiKey);
     }
 }

@@ -6,15 +6,24 @@ namespace KaniWaniBlack.Data.Models
 {
     public partial class KaniWaniBlackContext : DbContext
     {
-        public virtual DbSet<AuditLog> AuditLogs { get; set; }
+        public virtual DbSet<AuditLog> AuditLog { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserVocab> UserVocab { get; set; }
         public virtual DbSet<WaniKaniUser> WaniKaniUser { get; set; }
         public virtual DbSet<WaniKaniVocab> WaniKaniVocab { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=KaniWaniBlack;Trusted_Connection=True;");
+            }
+        }
+
         public KaniWaniBlackContext(DbContextOptions<KaniWaniBlackContext> options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AuditLog>(entity =>
@@ -37,7 +46,7 @@ namespace KaniWaniBlack.Data.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.Username)
-                    .HasName("UQ__User__536C85E4C904BC2C")
+                    .HasName("UQ__User__536C85E473F8C2F5")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -88,13 +97,13 @@ namespace KaniWaniBlack.Data.Models
                     .WithMany(p => p.UserVocab)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserVocab__UserI__3A4CA8FD");
+                    .HasConstraintName("FK_UserVocab_User");
 
                 entity.HasOne(d => d.Wkvocab)
                     .WithMany(p => p.UserVocab)
                     .HasForeignKey(d => d.WkvocabId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserVocab__WKVoc__3B40CD36");
+                    .HasConstraintName("FK_UserVocab_WaniKaniVocab");
             });
 
             modelBuilder.Entity<WaniKaniUser>(entity =>
@@ -107,7 +116,7 @@ namespace KaniWaniBlack.Data.Models
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.WkApiKey)
+                entity.Property(e => e.WkapiKey)
                     .HasColumnName("WKApiKey")
                     .HasMaxLength(100)
                     .IsUnicode(false);
@@ -123,7 +132,7 @@ namespace KaniWaniBlack.Data.Models
                     .WithMany(p => p.WaniKaniUser)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__WaniKaniU__UserI__3587F3E0");
+                    .HasConstraintName("FK_WaniKaniUser_User");
             });
 
             modelBuilder.Entity<WaniKaniVocab>(entity =>

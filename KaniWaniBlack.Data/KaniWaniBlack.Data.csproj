@@ -102,7 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AuditLogs.cs" />
+    <Compile Include="Models\AuditLog.cs" />
     <Compile Include="Models\KaniWaniBlackContext.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\Interfaces\IGenericRepository.cs" />
