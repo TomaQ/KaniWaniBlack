@@ -65,18 +65,15 @@ namespace KaniWaniBlack.Services.Services
             try
             {
                 List<WaniKaniVocab> vocabList = new List<WaniKaniVocab>();
-                foreach (var w in words.requested_information)
-                {
-                    WaniKaniVocab newWord = new WaniKaniVocab
-                    {
-                        Level = w.level,
-                        Character = w.character,
-                        Kana = w.kana,
-                        Meaning = w.meaning
-                    };
 
-                    vocabList.Add(newWord);
-                }
+                vocabList = words.requested_information.Select(x =>
+                    new WaniKaniVocab
+                    {
+                        Level = x.level,
+                        Character = x.character,
+                        Kana = x.kana,
+                        Meaning = x.meaning
+                    }).ToList();
 
                 _WKVRepo.Add(vocabList.ToArray());
                 didUpdate = true;

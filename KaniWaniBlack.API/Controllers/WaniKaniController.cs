@@ -32,6 +32,7 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public ActionResult UpdateWaniKaniVocabList(string apiKey)
         {
+            //check if admin user first or username = something here probably
             bool didUpdate = _WKService.UpdateWaniKaniVocabList(apiKey);
             return Json(didUpdate);
         }
