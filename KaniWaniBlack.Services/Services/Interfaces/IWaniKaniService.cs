@@ -9,5 +9,7 @@ namespace KaniWaniBlack.Services.Services.Interfaces
     public interface IWaniKaniService
     {
         bool UpdateWaniKaniVocabList(string apiKey);
+
+        bool GetUserWaniKaniData(int userId, string apiKey);
     }
 }

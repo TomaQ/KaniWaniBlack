@@ -22,17 +22,20 @@ namespace KaniWaniBlack.API.Controllers
 
         //[Authorize] //TODO: uncomment
         [HttpGet]
-        public ActionResult GetUserWaniKaniData(string apiKey)
+        public ActionResult GetUserWaniKaniData()
         {
-            Logger.HandleException(new Exception("Test logging"));
-            return Json("");
+            string apiKey = "";
+            int userId = 0;
+            bool didUpdate = _WKService.GetUserWaniKaniData(userId, apiKey);
+            return Json(didUpdate);
         }
 
         //[Authorize] //TODO: uncomment also
         [HttpPost]
-        public ActionResult UpdateWaniKaniVocabList(string apiKey)
+        public ActionResult UpdateWaniKaniVocabList()
         {
             //check if admin user first or username = something here probably
+            string apiKey = "";
             bool didUpdate = _WKService.UpdateWaniKaniVocabList(apiKey);
             return Json(didUpdate);
         }

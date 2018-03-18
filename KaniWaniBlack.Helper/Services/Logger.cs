@@ -11,9 +11,15 @@ namespace KaniWaniBlack.Helper.Services
     {
         private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        //TODO: email and logging levels
         public static void HandleException(Exception ex)
         {
             log.ErrorFormat("An error has occurred, Exception: {0}", ex);
+        }
+
+        public static void LogError(string error)
+        {
+            log.ErrorFormat("An error has occurred: " + error);
         }
     }
 }

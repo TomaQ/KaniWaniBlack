@@ -24,6 +24,6 @@ namespace KaniWaniBlack.Services.Models.WaniKani
         public int reading_current_streak { get; set; }
         public object meaning_note { get; set; }
         public object reading_note { get; set; }
-        public object user_synonyms { get; set; }
+        public List<string> user_synonyms { get; set; }
     }
 }

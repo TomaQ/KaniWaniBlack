@@ -14,4 +14,9 @@ namespace KaniWaniBlack.Services.Models.WaniKani
         public string meaning { get; set; }
         public UserSpecific user_specific { get; set; }
     }
+
+    public class UserRequestedInformation
+    {
+        public List<RequestedInformation> general { get; set; }
+    }
 }

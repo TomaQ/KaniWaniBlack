@@ -9,6 +9,7 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+/KaniWaniBlack.Api/Properties/PublishProfiles
 
 # Build results
 [Dd]ebug/
