@@ -88,6 +88,7 @@ namespace KaniWaniBlack.Services.Services
                     if (hashedPassword == user.PasswordHash)
                     {
                         response.UserName = user.Username;
+                        response.UserId = user.Id;
 
                         response.Code = CodeType.Ok;
                         response.Message = Strings.USER_AUTH_SUCCESS;

@@ -21,5 +21,10 @@ namespace KaniWaniBlack.Helper.Services
         {
             log.ErrorFormat("An error has occurred: " + error);
         }
+
+        public static void LogInfo(string info)
+        {
+            log.InfoFormat(info);
+        }
     }
 }
