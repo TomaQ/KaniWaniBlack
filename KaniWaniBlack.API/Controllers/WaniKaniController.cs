@@ -24,8 +24,11 @@ namespace KaniWaniBlack.API.Controllers
         [HttpGet]
         public ActionResult GetUserWaniKaniData()
         {
-            string apiKey = "";
-            int userId = 0;
+            string apiKey = HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_API_KEY);
+            int userId = Convert.ToInt32(HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_USER_ID));
+            string application = HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_APPLICATION);
+            Logger.LogInfo("Starting GetUserWaniKaniData action for id: " + userId + " from " + application);
+
             bool didUpdate = _WKService.GetUserWaniKaniData(userId, apiKey);
             return Json(didUpdate);
         }

@@ -3,6 +3,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using KaniWaniBlack.API.Models;
+using KaniWaniBlack.Helper.Services;
+using KaniWaniBlack.Services.Models.Authentication;
 using KaniWaniBlack.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +29,7 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public ActionResult CreateUser([FromBody]CreateUserRequest request)
         {
-            //TOOD: logging
+            Logger.LogInfo("Starting create user action for: " + request.Username + " from " + request.Application);
             return Json(_userService.CreateUser(request.Username, request.Password, request.ConfirmPassword, request.Application));
         }
 
@@ -35,12 +37,13 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public IActionResult LoginUser([FromBody]LoginUserRequest request)
         {
+            Logger.LogInfo("Starting login user action for: " + request.Username + " from " + request.Application);
             IActionResult response = Unauthorized();
-            bool isAuthenticated = Authenticate(request.Username, request.Password, request.Application);
+            AuthenticationResponse isAuthenticated = Authenticate(request.Username, request.Password, request.Application);
 
-            if (isAuthenticated)
+            if (isAuthenticated.Code == Services.Models.CodeType.Ok)
             {
-                string tokenString = BuildToken(request.Username);
+                string tokenString = BuildToken(isAuthenticated, request.Application);
                 response = Ok(new { token = tokenString });
             }
 
@@ -51,18 +54,22 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public ActionResult ResetPassword(ResetPasswordRequest request)
         {
+            Logger.LogInfo("Starting reset password action for: " + request.Username + " from " + request.Application);
             if (request.NewPassword == request.ConfirmNewPassword)
             {
                 return Json(_userService.ResetPassword(request.Username, request.Password, request.NewPassword, request.Application));
             }
 
-            return Json("Passwords do not match."); //TODO: static string
+            return Json(Strings.PASSWORDS_DONT_MATCH);
         }
 
-        private string BuildToken(string username)
+        private string BuildToken(AuthenticationResponse response, string applicationUsed)
         {
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.UniqueName, username),
+                new Claim(JwtRegisteredClaimNames.UniqueName, response.UserName),
+                new Claim(Strings.CLAIM_API_KEY, response.ApiKey),
+                new Claim(Strings.CLAIM_APPLICATION, applicationUsed),
+                new Claim(Strings.CLAIM_USER_ID, response.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -75,14 +82,9 @@ namespace KaniWaniBlack.API.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private bool Authenticate(string username, string password, string applicationUsed)
+        private AuthenticationResponse Authenticate(string username, string password, string applicationUsed)
         {
-            if (_userService.ValidateUser(username, password, applicationUsed).Code == Services.Models.CodeType.Ok)
-            {
-                return true;
-            }
-
-            return false;
+            return _userService.ValidateUser(username, password, applicationUsed);
         }
     }
 }
