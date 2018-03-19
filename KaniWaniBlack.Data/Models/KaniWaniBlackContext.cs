@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace KaniWaniBlack.Data.Models
 {
@@ -11,17 +12,19 @@ namespace KaniWaniBlack.Data.Models
         public virtual DbSet<UserVocab> UserVocab { get; set; }
         public virtual DbSet<WaniKaniUser> WaniKaniUser { get; set; }
         public virtual DbSet<WaniKaniVocab> WaniKaniVocab { get; set; }
+        public IConfiguration Configuration { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=KaniWaniBlack;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(Configuration["DBContextString:Context"]);
             }
         }
 
-        public KaniWaniBlackContext(DbContextOptions<KaniWaniBlackContext> options) : base(options)
+        public KaniWaniBlackContext(DbContextOptions<KaniWaniBlackContext> options, IConfiguration configuration) : base(options)
         {
+            Configuration = configuration;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

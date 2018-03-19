@@ -31,7 +31,7 @@ namespace KaniWaniBlack.Test
             builder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=KaniWaniBlack; user id=KaniWaniUser;password=waniisakani1337;Trusted_Connection=True;MultipleActiveResultSets=true")
                 .UseInternalServiceProvider(serviceProvider);
 
-            _context = new KaniWaniBlackContext(builder.Options);
+            _context = new KaniWaniBlackContext(builder.Options, null);
         }
 
         [Fact]
