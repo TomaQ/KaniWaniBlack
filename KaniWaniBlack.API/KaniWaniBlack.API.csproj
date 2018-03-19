@@ -4,9 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="log4net.config" />
-  </ItemGroup>
+  
 
   <ItemGroup>
     <Folder Include="wwwroot\" />

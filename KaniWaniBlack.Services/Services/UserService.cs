@@ -67,7 +67,7 @@ namespace KaniWaniBlack.Services.Services
             }
             catch (Exception ex) //TODO: sqlexception
             {
-                //Logger.HandleException(ex);
+                Logger.HandleException(ex);
                 response.Code = CodeType.Error;
             }
 
@@ -108,6 +108,7 @@ namespace KaniWaniBlack.Services.Services
             }
             catch (Exception ex)
             {
+                Logger.HandleException(ex);
                 response.Message = ex.Message; //TODO: not this
             }
 
