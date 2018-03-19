@@ -67,7 +67,7 @@ namespace KaniWaniBlack.API.Controllers
         {
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.UniqueName, response.UserName),
-                new Claim(Strings.CLAIM_API_KEY, response.ApiKey),
+                new Claim(Strings.CLAIM_API_KEY, response.ApiKey ?? ""),
                 new Claim(Strings.CLAIM_APPLICATION, applicationUsed),
                 new Claim(Strings.CLAIM_USER_ID, response.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
