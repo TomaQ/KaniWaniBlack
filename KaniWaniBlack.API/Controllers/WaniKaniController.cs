@@ -20,7 +20,7 @@ namespace KaniWaniBlack.API.Controllers
             _WKService = waniServ;
         }
 
-        //[Authorize] //TODO: uncomment
+        [Authorize]
         [HttpGet]
         public ActionResult GetUserWaniKaniData()
         {
@@ -33,12 +33,13 @@ namespace KaniWaniBlack.API.Controllers
             return Json(didUpdate);
         }
 
-        //[Authorize] //TODO: uncomment also
+        [Authorize]
         [HttpPost]
         public ActionResult UpdateWaniKaniVocabList()
         {
+            Logger.LogInfo("Starting UpdateWaniKaniVocabList action for "); //TODO: figure out admin rights
             //check if admin user first or username = something here probably
-            string apiKey = "";
+            string apiKey = "";// HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_API_KEY);
             bool didUpdate = _WKService.UpdateWaniKaniVocabList(apiKey);
             return Json(didUpdate);
         }

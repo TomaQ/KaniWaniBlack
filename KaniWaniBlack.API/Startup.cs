@@ -18,6 +18,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using KaniWaniBlack.Data.Models;
 using KaniWaniBlack.Helper.Services.HttpFactory;
+using KaniWaniBlack.Helper.Services;
 
 namespace KaniWaniBlack.API
 {
@@ -34,6 +35,7 @@ namespace KaniWaniBlack.API
         public void ConfigureServices(IServiceCollection services)
         {
             //Use JWT for authentication
+            Logger.LogInfo("Starting configuration startup");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
