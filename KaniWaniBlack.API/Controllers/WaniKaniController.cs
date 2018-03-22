@@ -38,8 +38,8 @@ namespace KaniWaniBlack.API.Controllers
         public ActionResult UpdateWaniKaniVocabList()
         {
             Logger.LogInfo("Starting UpdateWaniKaniVocabList action for "); //TODO: figure out admin rights
-            //check if admin user first or username = something here probably
-            string apiKey = "";// HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_API_KEY);
+            //TODO: check if admin user first or username = something here probably
+            string apiKey = HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_API_KEY);
             bool didUpdate = _WKService.UpdateWaniKaniVocabList(apiKey);
             return Json(didUpdate);
         }
