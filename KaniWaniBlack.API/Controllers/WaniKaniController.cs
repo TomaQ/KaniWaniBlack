@@ -37,7 +37,7 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public ActionResult UpdateWaniKaniVocabList()
         {
-            Logger.LogInfo("Starting UpdateWaniKaniVocabList action for "); //TODO: figure out admin rights
+            Logger.LogInfo("Starting UpdateWaniKaniVocabList action for " + HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_USER_ID)); //TODO: figure out admin rights
             //TODO: check if admin user first or username = something here probably
             string apiKey = HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_API_KEY);
             bool didUpdate = _WKService.UpdateWaniKaniVocabList(apiKey);

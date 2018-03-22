@@ -55,7 +55,7 @@ namespace KaniWaniBlack.Services.Services
             }
             catch (Exception ex)
             {
-                //TODO: this
+                Logger.HandleException(ex);
             }
 
             return didUpdate;
