@@ -11,11 +11,13 @@ namespace KaniWaniBlack.Services.Services
     public class UserService : IUserService
     {
         private readonly IGenericRepository<User> _userRepo;
+        private readonly IGenericRepository<WaniKaniUser> _wkUserRepo;
         private readonly ICryptoService _cryptoService;
 
-        public UserService(IGenericRepository<User> genericUserRepo, ICryptoService cryServ)
+        public UserService(IGenericRepository<User> genericUserRepo, IGenericRepository<WaniKaniUser> genericWKUserRepo, ICryptoService cryServ)
         {
             _userRepo = genericUserRepo;
+            _wkUserRepo = genericWKUserRepo;
             _cryptoService = cryServ;
         }
 
@@ -89,6 +91,9 @@ namespace KaniWaniBlack.Services.Services
                     {
                         response.UserName = user.Username;
                         response.UserId = user.Id;
+
+                        var wkUserInfo = _wkUserRepo.Get(x => x.UserId == user.Id);
+                        response.ApiKey = wkUserInfo?.WkapiKey;
 
                         response.Code = CodeType.Ok;
                         response.Message = Strings.USER_AUTH_SUCCESS;

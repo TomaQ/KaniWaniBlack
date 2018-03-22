@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using KaniWaniBlack.Helper.Services;
@@ -37,10 +38,13 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public ActionResult UpdateWaniKaniVocabList()
         {
-            Logger.LogInfo("Starting UpdateWaniKaniVocabList action for " + HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_USER_ID)); //TODO: figure out admin rights
+            string userName = HttpHelper.GetClaim(HttpContext.User, JwtRegisteredClaimNames.UniqueName);
+            Logger.LogInfo("Starting UpdateWaniKaniVocabList action for " + userName); //TODO: figure out admin rights
             //TODO: check if admin user first or username = something here probably
             string apiKey = HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_API_KEY);
+
             bool didUpdate = _WKService.UpdateWaniKaniVocabList(apiKey);
+            Logger.LogInfo("Finished UpdateWaniKaniVocabList action for " + userName);
             return Json(didUpdate);
         }
     }
