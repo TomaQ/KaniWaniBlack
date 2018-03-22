@@ -102,6 +102,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\DTO\UserKaniWaniList.cs" />
+    <Compile Include="DAL\Interfaces\IKaniWaniRepository.cs" />
+    <Compile Include="DAL\KaniWaniRepository.cs" />
     <Compile Include="Models\AuditLog.cs" />
     <Compile Include="Models\KaniWaniBlackContext.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
@@ -119,6 +122,11 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\KaniWaniBlack.Helper\KaniWaniBlack.Helper.csproj">
+      <Project>{02840321-0473-4FE5-AC0B-AC400A92BD2A}</Project>
+      <Name>KaniWaniBlack.Helper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

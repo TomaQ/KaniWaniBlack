@@ -61,9 +61,11 @@ namespace KaniWaniBlack.API
             services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
             services.AddScoped<IGenericRepository<WaniKaniVocab>, GenericRepository<WaniKaniVocab>>();
             services.AddScoped<IGenericRepository<UserVocab>, GenericRepository<UserVocab>>();
+            services.AddScoped<IKaniWaniRepository, KaniWaniRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptoService, CryptoService>();
             services.AddTransient<IWaniKaniService, WaniKaniService>();
+            services.AddTransient<IKaniWaniService, KaniWaniService>();
             services.AddTransient<IHttpClientFactory, HttpClientFactory>();
 
             //TODO: restrict origin for prod
