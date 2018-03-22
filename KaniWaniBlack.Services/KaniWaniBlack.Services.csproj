@@ -53,9 +53,11 @@
     <Compile Include="Models\WaniKani\WaniKaniVocabWords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CryptoService.cs" />
+    <Compile Include="Services\Interfaces\IKaniWaniService.cs" />
     <Compile Include="Services\Interfaces\ICryptoService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\Interfaces\IWaniKaniService.cs" />
+    <Compile Include="Services\KaniWaniService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WaniKaniService.cs" />
   </ItemGroup>

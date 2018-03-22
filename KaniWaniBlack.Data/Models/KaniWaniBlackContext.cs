@@ -1,4 +1,5 @@
 ﻿using System;
+using KaniWaniBlack.Services.Models.KaniWani;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ namespace KaniWaniBlack.Data.Models
         public virtual DbSet<UserVocab> UserVocab { get; set; }
         public virtual DbSet<WaniKaniUser> WaniKaniUser { get; set; }
         public virtual DbSet<WaniKaniVocab> WaniKaniVocab { get; set; }
+        public virtual DbSet<UserKaniWaniList> UserKaniWaniList { get; set; }
         public IConfiguration Configuration { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
