@@ -63,10 +63,19 @@ namespace KaniWaniBlack.API.Controllers
             return Json(Strings.PASSWORDS_DONT_MATCH);
         }
 
+        [Authorize]
+        [HttpGet]
+        public ActionResult GetUserProfile()
+        {
+            //should not throw exception since all tokens should have a user id
+            int userId = Convert.ToInt32(HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_USER_ID));
+            return Json(_userService.GetUserProfile(userId));
+        }
+
         private string BuildToken(AuthenticationResponse response, string applicationUsed)
         {
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.UniqueName, response.UserName),
+                new Claim(Strings.CLAIM_USERNAME, response.UserName),
                 new Claim(Strings.CLAIM_API_KEY, response.ApiKey ?? ""),
                 new Claim(Strings.CLAIM_APPLICATION, applicationUsed),
                 new Claim(Strings.CLAIM_USER_ID, response.UserId.ToString()),

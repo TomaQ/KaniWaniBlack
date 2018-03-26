@@ -38,7 +38,7 @@ namespace KaniWaniBlack.API.Controllers
         [HttpPost]
         public ActionResult UpdateWaniKaniVocabList()
         {
-            string userName = HttpHelper.GetClaim(HttpContext.User, JwtRegisteredClaimNames.UniqueName);
+            string userName = HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_USERNAME);
             Logger.LogInfo("Starting UpdateWaniKaniVocabList action for " + userName); //TODO: figure out admin rights
             //TODO: check if admin user first or username = something here probably
             string apiKey = HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_API_KEY);

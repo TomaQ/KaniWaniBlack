@@ -5,6 +5,7 @@ using KaniWaniBlack.Services.Models.Authentication;
 using KaniWaniBlack.Services.Services.Interfaces;
 using System;
 using KaniWaniBlack.Helper.Services;
+using KaniWaniBlack.Services.Models.User;
 
 namespace KaniWaniBlack.Services.Services
 {
@@ -148,6 +149,26 @@ namespace KaniWaniBlack.Services.Services
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
+        public UserProfile GetUserProfile(int userId)
+        {
+            var response = new UserProfile();
+            try
+            {
+                response.Username = _userRepo.Get(x => x.Id == userId).Username; //TODO: simplify to make only 1 call to db
+                var wkUserInfo = _wkUserRepo.Get(x => x.UserId == userId);
+
+                response.Gravatar = wkUserInfo.Gravatar;
+                response.WaniKaniApiKey = wkUserInfo.WkapiKey;
+                response.WaniKaniLevel = wkUserInfo.Wklevel ?? 0;
+            }
+            catch (Exception ex)
+            {
+                Logger.HandleException(ex);
             }
 
             return response;

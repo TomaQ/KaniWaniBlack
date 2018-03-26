@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Models\Authentication\AuthenticationResponse.cs" />
     <Compile Include="Models\BaseResponse.cs" />
+    <Compile Include="Models\User\UserProfile.cs" />
     <Compile Include="Models\WaniKani\Error.cs" />
     <Compile Include="Models\WaniKani\RequestedInformation.cs" />
     <Compile Include="Models\WaniKani\UserInformation.cs" />
