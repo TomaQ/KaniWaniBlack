@@ -174,6 +174,33 @@ namespace KaniWaniBlack.Services.Services
             return response;
         }
 
+        public BaseResponse UpdateUserProfile(int userId, string username, string apiKey)
+        {
+            var response = new BaseResponse();
+            try
+            {
+                if (!string.IsNullOrEmpty(username))
+                {
+                    var user = _userRepo.Get(x => x.Id == userId);
+                    user.Username = username;
+                    _userRepo.Update(user);
+                }
+                if (!string.IsNullOrEmpty(apiKey))
+                {
+                    var wkUser = _wkUserRepo.Get(x => x.UserId == userId);
+                    wkUser.WkapiKey = apiKey;
+                    _wkUserRepo.Update(wkUser);
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message; //TODO: not return exception messages
+                Logger.HandleException(ex);
+            }
+
+            return response;
+        }
+
         //If the user login was successful or failed, update fields in the DB
         private void UpdateUserOnLoginAttempt(User user, string applicationUsed, bool failedLogin = false)
         {
@@ -197,7 +224,7 @@ namespace KaniWaniBlack.Services.Services
             }
             catch (Exception ex)
             {
-                //TODO:
+                Logger.HandleException(ex);
             }
         }
     }

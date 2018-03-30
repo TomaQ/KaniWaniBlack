@@ -72,6 +72,15 @@ namespace KaniWaniBlack.API.Controllers
             return Json(_userService.GetUserProfile(userId));
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateUserProfile(UpdateUserRequest request)
+        {
+            int userId = Convert.ToInt32(HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_USER_ID));
+            Logger.LogInfo(string.Format("Starting UpdateUserProfile action for userId: {0}", userId));
+            return Json(_userService.UpdateUserProfile(userId, request.Username, request.WaniKaniApiKey));
+        }
+
         private string BuildToken(AuthenticationResponse response, string applicationUsed)
         {
             var claims = new[] {
