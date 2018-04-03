@@ -191,6 +191,9 @@ namespace KaniWaniBlack.Services.Services
                     wkUser.WkapiKey = apiKey;
                     _wkUserRepo.Update(wkUser);
                 }
+
+                response.Code = CodeType.Ok;
+                response.Message = "Success";
             }
             catch (Exception ex)
             {

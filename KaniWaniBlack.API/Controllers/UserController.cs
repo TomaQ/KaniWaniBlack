@@ -74,7 +74,7 @@ namespace KaniWaniBlack.API.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult UpdateUserProfile(UpdateUserRequest request)
+        public ActionResult UpdateUserProfile([FromBody]UpdateUserRequest request)
         {
             int userId = Convert.ToInt32(HttpHelper.GetClaim(HttpContext.User, Strings.CLAIM_USER_ID));
             Logger.LogInfo(string.Format("Starting UpdateUserProfile action for userId: {0}", userId));

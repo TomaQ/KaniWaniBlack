@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KaniWaniBlack.API.Models
 {
-    public class UpdateUserRequest
+    public class UpdateUserRequest : BaseRequest
     {
         public string Username { get; set; }
         public string WaniKaniApiKey { get; set; }
