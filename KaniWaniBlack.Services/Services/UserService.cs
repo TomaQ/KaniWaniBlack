@@ -5,6 +5,7 @@ using KaniWaniBlack.Services.Models.Authentication;
 using KaniWaniBlack.Services.Services.Interfaces;
 using System;
 using KaniWaniBlack.Helper.Services;
+using KaniWaniBlack.Services.Models.User;
 
 namespace KaniWaniBlack.Services.Services
 {
@@ -153,6 +154,56 @@ namespace KaniWaniBlack.Services.Services
             return response;
         }
 
+        public UserProfile GetUserProfile(int userId)
+        {
+            var response = new UserProfile();
+            try
+            {
+                response.Username = _userRepo.Get(x => x.Id == userId).Username; //TODO: simplify to make only 1 call to db
+                var wkUserInfo = _wkUserRepo.Get(x => x.UserId == userId);
+
+                response.Gravatar = wkUserInfo.Gravatar;
+                response.WaniKaniApiKey = wkUserInfo.WkapiKey;
+                response.WaniKaniLevel = wkUserInfo.Wklevel ?? 0;
+            }
+            catch (Exception ex)
+            {
+                Logger.HandleException(ex);
+            }
+
+            return response;
+        }
+
+        public BaseResponse UpdateUserProfile(int userId, string username, string apiKey)
+        {
+            var response = new BaseResponse();
+            try
+            {
+                if (!string.IsNullOrEmpty(username))
+                {
+                    var user = _userRepo.Get(x => x.Id == userId);
+                    user.Username = username;
+                    _userRepo.Update(user);
+                }
+                if (!string.IsNullOrEmpty(apiKey))
+                {
+                    var wkUser = _wkUserRepo.Get(x => x.UserId == userId);
+                    wkUser.WkapiKey = apiKey;
+                    _wkUserRepo.Update(wkUser);
+                }
+
+                response.Code = CodeType.Ok;
+                response.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message; //TODO: not return exception messages
+                Logger.HandleException(ex);
+            }
+
+            return response;
+        }
+
         //If the user login was successful or failed, update fields in the DB
         private void UpdateUserOnLoginAttempt(User user, string applicationUsed, bool failedLogin = false)
         {
@@ -176,7 +227,7 @@ namespace KaniWaniBlack.Services.Services
             }
             catch (Exception ex)
             {
-                //TODO:
+                Logger.HandleException(ex);
             }
         }
     }

@@ -20,6 +20,7 @@ namespace KaniWaniBlack.Helper.Services
         public const string WANIKANI_API_URL = @"https://www.wanikani.com/api/v1.4/user/";
 
         /* Token claims */
+        public const string CLAIM_USERNAME = "username";
         public const string CLAIM_USER_ID = "user_id";
         public const string CLAIM_API_KEY = "api_key";
         public const string CLAIM_APPLICATION = "application";

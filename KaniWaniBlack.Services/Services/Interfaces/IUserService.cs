@@ -1,5 +1,7 @@
 ﻿using KaniWaniBlack.Data.Models;
+using KaniWaniBlack.Services.Models;
 using KaniWaniBlack.Services.Models.Authentication;
+using KaniWaniBlack.Services.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +21,9 @@ namespace KaniWaniBlack.Services.Services.Interfaces
         AuthenticationResponse ValidateUser(string username, string password, string applicationUsed);
 
         AuthenticationResponse ResetPassword(string username, string password, string newPassword, string applicationUsed);
+
+        UserProfile GetUserProfile(int userId);
+
+        BaseResponse UpdateUserProfile(int userId, string username, string apiKey);
     }
 }

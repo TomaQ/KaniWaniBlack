@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace KaniWaniBlack.API.Models
 {
-    public class UserRequest : BaseRequest
+    public class UpdateUserRequest : BaseRequest
     {
         public string Username { get; set; }
-        public string Password { get; set; }
+        public string WaniKaniApiKey { get; set; }
     }
 }
