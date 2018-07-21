@@ -44,6 +44,28 @@ namespace KaniWaniBlack.API.Controllers
             if (isAuthenticated.Code == Services.Models.CodeType.Ok)
             {
                 string tokenString = BuildToken(isAuthenticated, request.Application);
+
+                //
+                //
+
+                //
+
+                //
+
+                //
+                //
+
+                Request.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                //
+
+                //
+
+                //
+
+                //
+                //
+                //
+
                 response = Ok(new { token = tokenString });
             }
 
