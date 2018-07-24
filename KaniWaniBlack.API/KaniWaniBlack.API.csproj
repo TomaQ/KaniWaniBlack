@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="log4net">
       <HintPath>..\KaniWaniBlack.Helper\bin\Debug\log4net.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
 
