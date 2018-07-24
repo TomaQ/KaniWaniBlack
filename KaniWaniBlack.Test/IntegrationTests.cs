@@ -53,7 +53,7 @@ namespace KaniWaniBlack.Test
             _context.SaveChanges();
 
             string username = _context.User.FirstAsync().Result.Username;
-            Assert.True(username == "TestUse");
+            Assert.True(username == "TestUsertest");
 
             _context.User.Remove(u);
             _context.SaveChanges();

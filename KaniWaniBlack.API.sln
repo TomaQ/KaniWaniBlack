@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaniWaniBlack.Helper", "Kan
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{92E47833-763D-4B7F-92D5-922559AFB1F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaniWaniBlack.Test", "KaniWaniBlack.Test\KaniWaniBlack.Test.csproj", "{B52A2154-81AA-49B3-83F3-FBA85F2D113D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KaniWaniBlack.Test", "KaniWaniBlack.Test\KaniWaniBlack.Test.csproj", "{B52A2154-81AA-49B3-83F3-FBA85F2D113D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
