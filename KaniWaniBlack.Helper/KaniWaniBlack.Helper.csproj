@@ -54,8 +54,5 @@
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\Strings.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

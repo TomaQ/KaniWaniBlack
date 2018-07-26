@@ -10,6 +10,7 @@ using KaniWaniBlack.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -86,6 +87,13 @@ namespace KaniWaniBlack.API
                 x.ForwardClientCertificate = false;
                 x.AutomaticAuthentication = false;
             });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,8 +103,14 @@ namespace KaniWaniBlack.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseAuthentication();
+            app.UseCookiePolicy();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("customRoute", "api/{controller=User}/{action=LoginUser}");
